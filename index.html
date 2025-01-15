@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <div class="cabecalho">
+            <div class="title-cabecalho">
+                <h1>Conversor de Medidas</h1>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="area-conversor">
+            <h3>Escolha a Medida para ser convertido</h3>
+            <div class="container-input">
+                <div class="container-input1">
+                    <input type="text" placeholder="quilometros" id="input1" readonly>
+                </div>
+                <span>&rarr;</span>
+                <div class="container-input2">
+                    <input type="text" placeholder="metros" id="input2" readonly>
+                </div>
+            </div>
+            <div class="container-input">
+                <div class="container-input1">
+                    <input type="number" id="usuario" placeholder="Digite o valor">
+                </div>
+                <span>&rarr;</span>
+                <div class="container-input2">
+                    <input type="number" id="resultado" placeholder="Resultado" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="title-padrao">
+                <h2>Temperatura</h2>
+                <div class="padrao-select-area">
+                    <div class="padrao-select">
+                        <label for="">Unidade de origem:</label>
+                        <select id="temperature-units1">
+                            <option value="null"></option>
+                            <option value="celsius">Celsius (°C)</option>
+                            <option value="fahrenheit">Fahrenheit (°F)</option>
+                            <option value="kelvin">Kelvin (K)</option>
+                        </select>
+                    </div>
+                    <div class="padrao-select">
+                        <label for="">Unidade de destino:</label>
+                        <select id="temperature-units2">
+                            <option value="null"></option>
+                            <option value="celsius">Celsius (°C)</option>
+                            <option value="fahrenheit">Fahrenheit (°F)</option>
+                            <option value="kelvin">Kelvin (K)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="title-padrao">
+                <h2>Comprimento</h2>
+                <div class="padrao-select-area">
+                    <div class="padrao-select">
+                        <label for="">Unidade de origem:</label>
+                        <select id="length-units1">
+                            <option value="null"></option>
+                            <option value="meters">Metros (m)</option>
+                            <option value="kilometers">Quilômetros (km)</option>
+                            <option value="miles">Milhas (mi)</option>
+                          </select>
+                    </div>
+                    <div class="padrao-select">
+                        <label for="">Unidade de destino:</label>
+                        <select id="length-units2">
+                            <option value="null"></option>
+                            <option value="meters">Metros (m)</option>
+                            <option value="kilometers">Quilômetros (km)</option>
+                            <option value="miles">Milhas (mi)</option>
+                          </select>
+                    </div>
+                </div>
+            </div>
+            <div class="title-padrao">
+                <h2>Tempo</h2>
+                <div class="padrao-select-area">
+                    <div class="padrao-select">
+                        <label for="">Unidade de origem:</label>
+                        <select id="time-units1">
+                            <option value="null"></option>
+                            <option value="seconds">Segundos (s)</option>
+                            <option value="minutes">Minutos (min)</option>
+                            <option value="hours">Horas (h)</option>
+                            <option value="days">Dias</option>
+                          </select>
+                    </div>
+                    <div class="padrao-select">
+                        <label for="">Unidade de destino:</label>
+                        <select id="time-units2">
+                            <option value="null"></option>
+                            <option value="seconds">Segundos (s)</option>
+                            <option value="minutes">Minutos (min)</option>
+                            <option value="hours">Horas (h)</option>
+                            <option value="days">Dias</option>
+                          </select>
+                    </div>
+                </div>
+            </div>
+            <div class="button-conversor">
+                <button disabled>Converter</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
