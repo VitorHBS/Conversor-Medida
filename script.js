@@ -7,12 +7,19 @@ let resultadoValue = document.querySelector("#resultado");
 const selectTemp1 = document.querySelector("#temperature-units1")
 const selectTemp2 = document.querySelector("#temperature-units2")
 
+const selectLength1 = document.querySelector("#length-units1")
+const selectLength2 = document.querySelector("#length-units2")
+
+const selectTime1 = document.querySelector("#time-units1")
+const selectTime2 = document.querySelector("#time-units2")
+
+const selectAll = document.querySelectorAll("select")
+
 const selectTempAll = document.querySelectorAll("#temperature-units1 option")
 
-const Temp1 = document.querySelector("#temperature-units1");
-const Temp2 = document.querySelector("#temperature-units2");
-
 const btnConverter = document.querySelector(".button-conversor button");
+
+let selectedField = null;
 
 let tempValue1 = ''; 
 let tempValue2 = '';
@@ -20,24 +27,41 @@ let tempValue2 = '';
 // Eventos 
 window.addEventListener("load", verificarSelecoes);
 
-selectTemp1.addEventListener("change", () => {
-    //text
-    const selectedOption = selectTemp1.options[selectTemp1.selectedIndex].text;
-    inputOrigem.value = selectedOption;
-    inputOrigem.setAttribute("readonly", true);
-    //value
-    tempValue1 = selectTemp1.options[selectTemp1.selectedIndex].value;
-    verificarSelecoes();
-});
-selectTemp2.addEventListener("change", () => {
-    //text
-    const selectedOption = selectTemp2.options[selectTemp2.selectedIndex].text;
-    inputDestino.value = selectedOption;
-    inputDestino.setAttribute("readonly", true);
-    //Value
-    tempValue2 = selectTemp2.options[selectTemp2.selectedIndex].value;
-    verificarSelecoes();
-});
+
+//Escolhendo o foco do input
+inputOrigem.addEventListener('focus', ()=> {
+    selectedField = 'origem';
+    inputOrigem.classList.add('ativo')
+    inputDestino.classList.remove('ativo')
+})
+inputDestino.addEventListener('focus', ()=> {
+    selectedField = 'destino';
+    inputDestino.classList.add('ativo')
+    inputOrigem.classList.remove('ativo')
+})
+
+//loop para pegar todos os selects e seus valores
+for (let i = 0; i < selectAll.length; i++){
+    selectAll[i].addEventListener('change', (evento) => {
+        //Pegando o select
+        const elementSelected = evento.target;
+        //value da option select
+        const elementValue = elementSelected.value;
+        //text do option
+        const elementText = elementSelected.options[elementSelected.selectedIndex].text;
+
+        if (selectedField === 'origem'){
+            inputOrigem.value = elementText;
+            inputOrigem.setAttribute('data-value', elementValue);   //seta um data-value para o calculo
+        }
+        else if (selectedField === 'destino') {
+            inputDestino.value = elementText;
+            inputDestino.setAttribute('data-value', elementValue);  //seta um data-value para o calculo
+        }else {
+            alert("Selecione o campo que deseja colocar essa medida!");
+        }
+    })
+}
 
 btnConverter.addEventListener("click", () => {
     Conversao();
@@ -68,11 +92,11 @@ function Conversao(){
 }
 
 function verificarSelecoes(){       // verificar se todos os campos estão preenchidos
-    const temp1Valida = tempValue1 && tempValue1 !== '';
-    const temp2Valida = tempValue2 && tempValue2 !== '';
-    const usuarioValido = usuarioValue.value && usuarioValue.value !== '';   
+    const input1Valido = inputOrigem.value !== '';
+    const input2Valido = inputDestino.value !== '';
+    const usuarioValido = usuarioValue.value !== '';   
 
-    if(temp1Valida && temp2Valida && usuarioValido){
+    if(input1Valido && input2Valido && usuarioValido){
         btnConverter.removeAttribute("disabled");
     } else {
         btnConverter.setAttribute("disabled", true);
