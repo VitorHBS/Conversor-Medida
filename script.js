@@ -4,18 +4,7 @@ const inputDestino = document.querySelector("#input2");
 let usuarioValue = document.querySelector("#usuario");
 let resultadoValue = document.querySelector("#resultado");
 
-const selectTemp1 = document.querySelector("#temperature-units1")
-const selectTemp2 = document.querySelector("#temperature-units2")
-
-const selectLength1 = document.querySelector("#length-units1")
-const selectLength2 = document.querySelector("#length-units2")
-
-const selectTime1 = document.querySelector("#time-units1")
-const selectTime2 = document.querySelector("#time-units2")
-
 const selectAll = document.querySelectorAll("select")
-
-const selectTempAll = document.querySelectorAll("#temperature-units1 option")
 
 const btnConverter = document.querySelector(".button-conversor button");
 
@@ -26,7 +15,6 @@ let tempValue2 = '';
 
 // Eventos 
 window.addEventListener("load", verificarSelecoes);
-
 
 //Escolhendo o foco do input
 inputOrigem.addEventListener('focus', ()=> {
@@ -53,10 +41,14 @@ for (let i = 0; i < selectAll.length; i++){
         if (selectedField === 'origem'){
             inputOrigem.value = elementText;
             inputOrigem.setAttribute('data-value', elementValue);   //seta um data-value para o calculo
+            dataValueInput1 = inputOrigem.getAttribute('data-value');
+            verificarSelecoes();
         }
         else if (selectedField === 'destino') {
             inputDestino.value = elementText;
             inputDestino.setAttribute('data-value', elementValue);  //seta um data-value para o calculo
+            dataValueInput2 = inputDestino.getAttribute('data-value');
+            verificarSelecoes();
         }else {
             alert("Selecione o campo que deseja colocar essa medida!");
         }
@@ -75,26 +67,40 @@ usuarioValue.addEventListener('change', ()=> {
 // Funções
 function Conversao(){
     const valorUsuario = parseFloat(usuarioValue.value)
-    if(isNaN(valorUsuario)){         //validação de entrada
+    //Temperatura
+    if (dataValueInput1 === 'celsius' || 'fahrenheit' || 'kelvin' && dataValueInput2 === 'celsius' || 'fahrenheit' || 'kelvin'){
+        if(isNaN(valorUsuario)){  //validação de entrada
         resultadoValue.placeholder = "Insira um número válido!";
         return;
-    } else if (tempValue1 === 'celsius' && tempValue2 === 'fahrenheit'){
-        resultadoValue.value = (parseFloat(usuarioValue.value) * 9/5) + 32; // celsius para fahrenheit
-    } else if (tempValue1 === 'fahrenheit' && tempValue2 === 'celsius'){
-        resultadoValue.value = (parseFloat(usuarioValue.value) - 32) * 5/9; // fahrenheit para celsius
-    } else if (tempValue1 === 'celsius' && tempValue2 === 'kelvin'){
-        resultadoValue.value = parseFloat(usuarioValue.value) + 273.15; // celsius para kelvin
-    } else if (tempValue1 === tempValue2){
-        resultadoValue.value = usuarioValue.value;
-    } else {
-        resultadoValue.placeholder = 'Conversão inválida!';
+        }// celsius para fahrenheit
+        else if (dataValueInput1 === 'celsius' && dataValueInput2 === 'fahrenheit'){
+            resultadoValue.value = (parseFloat(usuarioValue.value) * 9/5) + 32;         
+        }// fahrenheit para celsius
+        else if (dataValueInput1 === 'fahrenheit' && dataValueInput2 === 'celsius'){
+            resultadoValue.value = (parseFloat(usuarioValue.value) - 32) * 5/9;         
+        }// celsius para kelvin
+        else if (dataValueInput1 === 'celsius' && dataValueInput2 === 'kelvin'){
+            resultadoValue.value = parseFloat(usuarioValue.value) + 273.15;             
+        }// mesma medida
+        else if (dataValueInput1 === dataValueInput2){
+            resultadoValue.value = usuarioValue.value;
+        }// categorias diferentes
+        else {
+            resultadoValue.placeholder = 'Conversão inválida!';
+        }
+    }//Comprimento
+    else if (dataValueInput1 === 'meters' || 'kilometers' || 'miles' && dataValueInput2 === 'meters' || 'kilometers' || 'miles'){
+        if(isNaN(valorUsuario)){  //validação de entrada
+            resultadoValue.placeholder = "Insira um número válido!";
+            return;
+        }//
     }
 }
 
 function verificarSelecoes(){       // verificar se todos os campos estão preenchidos
-    const input1Valido = inputOrigem.value !== '';
-    const input2Valido = inputDestino.value !== '';
-    const usuarioValido = usuarioValue.value !== '';   
+    const input1Valido = inputOrigem.value !== '' && inputOrigem.value !== null;
+    const input2Valido = inputDestino.value !== '' && inputDestino.value !== null;
+    const usuarioValido = usuarioValue.value !== '' && usuarioValue.value !== null;   
 
     if(input1Valido && input2Valido && usuarioValido){
         btnConverter.removeAttribute("disabled");
