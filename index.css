@@ -142,3 +142,8 @@ input, select {
     background-color: #f0f8ff;
     transition: all 0.3s ease;
 }
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
